@@ -32,3 +32,16 @@ yarn build
 ```sh
 yarn lint
 ```
+
+
+### Docker
+Установите образ через
+```sh
+docker build -t chat-assignment .
+```
+Запустите контейнер через
+```sh
+docker run -it -p 8080:80 --name chat-assignment chat-assignment
+```
+
+Проект будет доступен по адресу http://localhost:8080
