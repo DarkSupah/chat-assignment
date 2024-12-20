@@ -1,6 +1,7 @@
 <script setup lang="ts">
 interface Props {
-  items: unknown[] | undefined
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  items: Array<any> | undefined
   itemKey: string
 }
 
