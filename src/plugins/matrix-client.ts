@@ -19,8 +19,6 @@ export default {
       })
 
       await client.start()
-
-      await client.sync()
     }
   },
 } as FunctionPlugin

@@ -15,7 +15,7 @@ interface FormData {
 
 const form = ref<FormInstance>()
 
-const { setup, loginWithPassword, start } = useClient()
+const { setup, loginWithPassword, start, sync } = useClient()
 
 const formData = reactive<FormData>({
   login: '',

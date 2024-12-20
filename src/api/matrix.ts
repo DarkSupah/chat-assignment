@@ -5,7 +5,6 @@ import { ClientEvent } from 'matrix-js-sdk/lib/client'
 import { SyncState } from 'matrix-js-sdk/lib/sync'
 import type { ICreateClientOpts } from 'matrix-js-sdk/lib/client'
 import type { LoginResponse, LoginRequest } from 'matrix-js-sdk/lib/@types/auth'
-import { RoomEvent } from 'matrix-js-sdk/lib/models/room'
 
 export interface AuthData {
   user?: string
@@ -65,7 +64,7 @@ export class Client {
     return this._client.getRooms()
   }
 
-  get home() {
+  get baseUrl() {
     return this._client.getHomeserverUrl()
   }
 

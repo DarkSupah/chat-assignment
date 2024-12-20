@@ -75,13 +75,13 @@ export const useClient = () => {
 
   const rooms = computed<Room[] | undefined>(() => client.value?.rooms)
 
-  const home = computed<string | undefined>(() => client.value?.home)
+  const baseUrl = computed<string | undefined>(() => client.value?.baseUrl)
 
   return {
     client,
 
     host,
-    home,
+    baseUrl,
 
     setup,
 

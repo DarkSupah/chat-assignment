@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useClient } from '~/composables/use-client.ts'
 
-import RoomItem from '~/components/atoms/room-item.vue'
-import ItemList from '~/components/molecules/item-list.vue'
+import RoomItem from '~/components/molecules/room-item.vue'
+import ItemList from '~/components/organisms/item-list.vue'
 
 const { rooms } = useClient()
 </script>

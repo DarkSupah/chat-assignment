@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import type { Room } from 'matrix-js-sdk/lib/models/room'
+import { type Room } from 'matrix-js-sdk/lib/models/room'
 import { useRoom } from '~/composables/use-room.ts'
 import { computed } from 'vue'
 import { type MatrixEvent } from 'matrix-js-sdk'
+
+import { MessageItem, EncryptedItem, UnknownItem } from '~/components/atoms/messages'
 
 interface Props {
   room: Room
@@ -14,6 +16,19 @@ const { getThumbnail, getEvents } = useRoom(props.room)
 
 const thumbnail = computed<string>(() => getThumbnail(32, 32, 'scale'))
 const events = computed<MatrixEvent[]>(() => getEvents())
+
+const getEventType = (evt: MatrixEvent) => {
+  switch (evt.getType()) {
+    case 'm.room.message':
+      return MessageItem
+
+    case 'm.room.encrypted':
+      return EncryptedItem
+
+    default:
+      return UnknownItem
+  }
+}
 </script>
 
 <template>
@@ -28,18 +43,29 @@ const events = computed<MatrixEvent[]>(() => getEvents())
         class="room-item__avatar"
         alt="room avatar"
       />
-      <span class="room-item__name">
-        {{ room?.name }}
-      </span>
+
+      <div class="room-item__header_wrapper">
+        <span class="room-item__name">
+          {{ room?.name }}
+        </span>
+
+        <span class="room-item__unread">
+          Новых сообщений: {{ room?.getRoomUnreadNotificationCount() }}
+        </span>
+      </div>
     </div>
 
     <div class="room-item__wrapper">
       <div class="room-item__last-events">
-        <div class="roomitem__event" v-for="event in events" :key="event.getId()">
-          {{ event.sender.name }}: {{ event }}
-        </div>
+        <component
+          v-for="event in events"
+          :key="event.getId()"
+          :is="getEventType(event)"
+          v-bind="{ event }"
+        >
+          {{ event.sender!.name }}: {{ event.getContent() }}
+        </component>
       </div>
-      <div class="room-item__unread"></div>
     </div>
   </div>
 </template>
@@ -57,6 +83,11 @@ const events = computed<MatrixEvent[]>(() => getEvents())
   &__header {
     display: flex;
     align-items: center;
+
+    &_wrapper {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   &__avatar {
@@ -83,6 +114,13 @@ const events = computed<MatrixEvent[]>(() => getEvents())
     & > *:not(:last-child) {
       margin-bottom: 8px;
     }
+  }
+
+  &__unread {
+    margin-top: 4px;
+
+    font-size: 11px;
+    color: var(--c-grey);
   }
 }
 </style>

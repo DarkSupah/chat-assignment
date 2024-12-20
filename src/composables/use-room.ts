@@ -18,7 +18,7 @@ const buildKey = (opts: KeyOptions): string => {
 }
 
 export const useRoom = (room: MaybeRef<Room>) => {
-  const { home } = useClient()
+  const { baseUrl } = useClient()
 
   const instance = unref<Room>(room)
 
@@ -35,7 +35,7 @@ export const useRoom = (room: MaybeRef<Room>) => {
       return cachedImage as string
     }
 
-    const result = instance.getAvatarUrl(home.value as string, width, height, resizeMethod)
+    const result = instance.getAvatarUrl(baseUrl.value as string, width, height, resizeMethod)
 
     THUMBNAILS_CACHE.value.set(key, result as string)
 
