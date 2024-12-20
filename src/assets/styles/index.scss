@@ -1,0 +1,17 @@
+@use 'reset' as *;
+@use 'colors' as *;
+@use 'element-plus/theme-chalk/src/index.scss' as *;
+@use 'element-plus/theme-chalk/src/dark/var.scss' as *;
+
+@use 'transitions' as *;
+
+#app {
+  height: max(600px, 100dvh);
+}
+
+html {
+  background: var(--el-bg-color);
+  font-family: var(--el-font-family), sans-serif;
+
+  color-scheme: dark;
+}
