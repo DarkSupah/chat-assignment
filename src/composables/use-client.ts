@@ -77,6 +77,17 @@ export const useClient = () => {
 
   const baseUrl = computed<string | undefined>(() => client.value?.baseUrl)
 
+  const sortedRooms = computed<Room[] | undefined>(() => {
+    if (!rooms.value) return undefined
+
+    return [...rooms.value].sort((a: Room, b: Room) => {
+      return b.getRoomUnreadNotificationCount() - a.getRoomUnreadNotificationCount() ||
+        a.name < b.name
+        ? -1
+        : 1
+    })
+  })
+
   return {
     client,
 
@@ -92,5 +103,6 @@ export const useClient = () => {
     start,
 
     rooms,
+    sortedRooms,
   }
 }

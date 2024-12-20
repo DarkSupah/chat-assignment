@@ -24,6 +24,9 @@ const { logout } = useClient()
 <style lang="scss">
 .default-layout {
   &__header {
+    position: sticky;
+    top: 0;
+
     --el-header-padding: 16px;
     color: var(--el-color-white);
     background: var(--el-color-primary);

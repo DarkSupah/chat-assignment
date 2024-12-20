@@ -4,7 +4,7 @@ import { useClient } from '~/composables/use-client.ts'
 import RoomItem from '~/components/molecules/room-item.vue'
 import ItemList from '~/components/organisms/item-list.vue'
 
-const { rooms } = useClient()
+const { sortedRooms: rooms } = useClient()
 </script>
 
 <template>
